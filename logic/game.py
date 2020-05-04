@@ -78,7 +78,8 @@ class Game:
         if (
             self.check_win(self.cells[row]) or
             self.check_win([self.cells[i][column] for i in range(4)]) or
-            (row == column and self.check_win([self.cells[i][i] for i in range(4)]))
+            (row == column and self.check_win([self.cells[i][i] for i in range(4)])) or
+            (row + column == 3 and self.check_win([self.cells[i][3 - i] for i in range(4)]))
         ):
             return 1
         return code
