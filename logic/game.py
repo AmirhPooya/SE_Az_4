@@ -44,7 +44,9 @@ class Game:
     def check_win(pieces):
         if (
                 pieces[0].height == pieces[1].height == pieces[2].height == pieces[3].height or
-                pieces[0].height == pieces[1].height == pieces[2].height == pieces[3].height
+                pieces[0].color == pieces[1].color == pieces[2].color == pieces[3].color or
+                pieces[0].shape == pieces[1].shape == pieces[2].shape == pieces[3].shape or
+                pieces[0].hollow_top == pieces[1].hollow_top == pieces[2].hollow_top == pieces[3].hollow_top
         ):
             return True
         return False
