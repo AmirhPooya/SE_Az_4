@@ -3,5 +3,5 @@ from tkinter import *
 
 class HighMenu:
     @staticmethod
-    def start():
+    def start(top):
         pass
