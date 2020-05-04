@@ -10,6 +10,13 @@ class Game:
         self.usable_pieces = set()
         self.turn = random.randint(1, 2)
         self.chosen_piece = None
+        self.turns_count = 0
+
+        try:
+            with open('highscore.txt', 'r') as f:
+                self.high_score = int(f.read())
+        except FileNotFoundError:
+            self.high_score = None
 
         for height in ['tall', 'short']:
             for color in ['black', 'white']:
@@ -42,9 +49,16 @@ class Game:
             return True
         return False
 
+    def save_high_score(self):
+        if self.high_score is not None and self.turns_count >= self.high_score:
+            return
+        with open('highscore.txt', 'w') as f:
+            f.write(str(self.turns_count))
+
     def place_piece(self, row, column):
         if self.chosen_piece is None or self.cells[row][column] is not None:
             return -2
+        self.turns_count += 1
         self.placed_pieces.add(self.chosen_piece)
         self.usable_pieces.remove(self.chosen_piece)
         self.cells[row][column] = self.chosen_piece
