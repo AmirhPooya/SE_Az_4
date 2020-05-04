@@ -1,6 +1,5 @@
 from tkinter import *
 from logic.game import Game
-from user_interface.end_game_menu import end_game
 
 
 game = None
@@ -13,7 +12,7 @@ def game_start(top):
     for widget in top.winfo_children():
         widget.destroy()
 
-    game = Game(["Poosa", "Ostad"])
+    game = Game(["AHP", "PKMS"])
 
     pieces = list(game.get_usable_piece_codes())
 
@@ -56,7 +55,7 @@ def put_piece(i, j, button):
     piece = game.place_piece(i, j)
     if piece == 1:
         name_label.config(text=game.current_name() + " WON!")
-        #end_game(top, )
+        game.save_high_score()
         window.quit()
         return
     if piece is not None:
