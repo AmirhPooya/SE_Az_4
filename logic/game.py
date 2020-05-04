@@ -17,3 +17,8 @@ class Game:
                 for shape in ['square', 'circle']:
                     for hollow_top in [True, False]:
                         self.usable_pieces.add(Piece(height, color, shape, hollow_top))
+
+    def choose_piece(self, piece):
+        if self.chosen_piece is not None:
+            return
+        self.chosen_piece = piece
