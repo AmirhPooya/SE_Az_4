@@ -60,6 +60,13 @@ class Game:
             return False
         return False
 
+    @staticmethod
+    def read_high_score():
+        scores = []
+        with open('highscore.txt', 'r') as f:
+            scores = [int(line) for line in f]
+        return scores
+
     def save_high_score(self):
         if self.high_score is not None and self.turns_count >= self.high_score:
             return
