@@ -22,3 +22,12 @@ class Game:
         if self.chosen_piece is not None:
             return
         self.chosen_piece = piece
+
+    @staticmethod
+    def check_win(pieces):
+        if (
+                pieces[0].height == pieces[1].height == pieces[2].height == pieces[3].height or
+                pieces[0].height == pieces[1].height == pieces[2].height == pieces[3].height
+        ):
+            return True
+        return False
