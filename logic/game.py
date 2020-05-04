@@ -38,9 +38,10 @@ class Game:
     def choose_piece(self, code):
         piece = self.get_piece(code)
         if self.chosen_piece is not None or piece is None:
-            return
+            return False
         self.chosen_piece = piece
         self.turn = 1 - self.turn
+        return True
 
     def current_name(self):
         return self.names[self.turn]
@@ -67,18 +68,17 @@ class Game:
 
     def place_piece(self, row, column):
         if self.chosen_piece is None or self.cells[row][column] is not None:
-            return -2
+            return None
         self.turns_count += 1
         self.placed_pieces.add(self.chosen_piece)
         self.usable_pieces.remove(self.chosen_piece)
         self.cells[row][column] = self.chosen_piece
-
+        code = self.chosen_piece.code
+        self.chosen_piece = None
         if (
             self.check_win(self.cells[row]) or
             self.check_win([self.cells[i][column] for i in range(4)]) or
             (row == column and self.check_win([self.cells[i][i] for i in range(4)]))
         ):
             return 1
-        if len(self.placed_pieces) == 16:
-            return -1
-        return 0
+        return code
