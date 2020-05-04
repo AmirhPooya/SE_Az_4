@@ -10,7 +10,6 @@ class Game:
         self.usable_pieces = set()
         self.turn = random.randint(1, 2)
         self.chosen_piece = None
-        self.piece_placed = False
 
         for height in ['tall', 'short']:
             for color in ['black', 'white']:
@@ -18,8 +17,19 @@ class Game:
                     for hollow_top in [True, False]:
                         self.usable_pieces.add(Piece(height, color, shape, hollow_top))
 
-    def choose_piece(self, piece):
-        if self.chosen_piece is not None:
+    def get_usable_piece_codes(self):
+        return {
+            piece.code for piece in self.usable_pieces
+        }
+
+    def get_piece(self, code):
+        for piece in self.usable_pieces:
+            if piece.code == code:
+                return piece
+
+    def choose_piece(self, code):
+        piece = self.get_piece(code)
+        if self.chosen_piece is not None or piece is None:
             return
         self.chosen_piece = piece
 
@@ -33,7 +43,7 @@ class Game:
         return False
 
     def place_piece(self, row, column):
-        if self.piece_placed or self.chosen_piece is None or self.cells[row][column] is not None:
+        if self.chosen_piece is None or self.cells[row][column] is not None:
             return -2
         self.placed_pieces.add(self.chosen_piece)
         self.usable_pieces.remove(self.chosen_piece)
