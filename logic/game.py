@@ -1,16 +1,18 @@
 import random
 
 from logic import Piece
+from user_interface.game_menu import update_turn
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, names):
         self.cells = [[None for _ in range(4)] for _ in range(4)]
         self.placed_pieces = set()
         self.usable_pieces = set()
-        self.turn = random.randint(1, 2)
+        self.turn = random.randint(0, 1)
         self.chosen_piece = None
         self.turns_count = 0
+        self.names = names
 
         try:
             with open('highscore.txt', 'r') as f:
@@ -39,6 +41,8 @@ class Game:
         if self.chosen_piece is not None or piece is None:
             return
         self.chosen_piece = piece
+        self.turn = 1 - self.turn
+        update_turn(self.names[self.turn])
 
     @staticmethod
     def check_win(pieces):

@@ -4,13 +4,15 @@ from logic.game import Game
 
 game = None
 
+def update_turn(name):
+    pass
 
 def game_start(top):
     global game
     for widget in top.winfo_children():
         widget.destroy()
 
-    game = Game()
+    game = Game("Poosa", "Ostad")
 
     pieces = ["XX", "XO", "Xx", "Xo", "xX", "xO", "xx", "xo",
               "OX", "OO", "Ox", "Oo", "oX", "oO", "ox", "oo"]
