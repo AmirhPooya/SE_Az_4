@@ -18,8 +18,14 @@ class Game:
                     for hollow_top in [True, False]:
                         self.usable_pieces.add(Piece(height, color, shape, hollow_top))
 
-    def choose_piece(self, piece):
-        if self.chosen_piece is not None:
+    def get_piece(self, code):
+        for piece in self.usable_pieces:
+            if piece.code == code:
+                return piece
+
+    def choose_piece(self, code):
+        piece = self.get_piece(code)
+        if self.chosen_piece is not None or piece is None:
             return
         self.chosen_piece = piece
 
