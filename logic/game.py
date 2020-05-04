@@ -75,10 +75,12 @@ class Game:
         self.cells[row][column] = self.chosen_piece
         code = self.chosen_piece.code
         self.chosen_piece = None
-        if (
-            self.check_win(self.cells[row]) or
-            self.check_win([self.cells[i][column] for i in range(4)]) or
-            (row == column and self.check_win([self.cells[i][i] for i in range(4)]))
-        ):
+        if self.win_conditions(row, column):
             return 1
         return code
+
+    def win_conditions(self, row, column):
+        return self.check_win(self.cells[row]) or\
+            self.check_win([self.cells[i][column] for i in range(4)]) or\
+            (row == column and self.check_win([self.cells[i][i] for i in range(4)])) or \
+            (row + column == 3 and self.check_win([self.cells[i][3 - i] for i in range(4)]))
