@@ -1,7 +1,6 @@
 import random
 
 from logic import Piece
-from user_interface.game_menu import update_turn
 
 
 class Game:
@@ -42,7 +41,9 @@ class Game:
             return
         self.chosen_piece = piece
         self.turn = 1 - self.turn
-        update_turn(self.names[self.turn])
+
+    def current_name(self):
+        return self.names[self.turn]
 
     @staticmethod
     def check_win(pieces):

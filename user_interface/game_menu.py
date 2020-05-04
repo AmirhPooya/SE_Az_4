@@ -12,7 +12,7 @@ def game_start(top):
     for widget in top.winfo_children():
         widget.destroy()
 
-    game = Game("Poosa", "Ostad")
+    game = Game(["Poosa", "Ostad"])
 
     pieces = ["XX", "XO", "Xx", "Xo", "xX", "xO", "xx", "xo",
               "OX", "OO", "Ox", "Oo", "oX", "oO", "ox", "oo"]
@@ -42,3 +42,4 @@ def set_piece(piece):
 
 def put_piece(i, j):
     game.place_piece(i, j)
+    name = game.current_name()
